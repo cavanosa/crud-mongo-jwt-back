@@ -5,10 +5,10 @@ import com.tutorial.crudmongoback.CRUD.entity.Product;
 import com.tutorial.crudmongoback.CRUD.repository.ProductRepository;
 import com.tutorial.crudmongoback.global.exceptions.AttributeException;
 import com.tutorial.crudmongoback.global.exceptions.ResourceNotFoundException;
+import com.tutorial.crudmongoback.global.utils.Operations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -29,7 +29,7 @@ public class ProductService {
     public Product save(ProductDto dto) throws AttributeException {
         if(productRepository.existsByName(dto.getName()))
             throw new AttributeException("name already in use");
-        int id = autoIncrement();
+        int id = Operations.autoIncrement(productRepository.findAll());
         Product product = new Product(id, dto.getName(), dto.getPrice());
         return productRepository.save(product);
     }
@@ -52,10 +52,6 @@ public class ProductService {
     }
 
     // private methods
-    private int autoIncrement() {
-        List<Product> products = productRepository.findAll();
-        return products.isEmpty()? 1 :
-                products.stream().max(Comparator.comparing(Product::getId)).get().getId() + 1;
-    }
+
 
 }

@@ -1,13 +1,11 @@
 package com.tutorial.crudmongoback.CRUD.entity;
 
-import org.springframework.data.annotation.Id;
+import com.tutorial.crudmongoback.global.entity.EntityId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "products")
-public class Product {
+public class Product extends EntityId {
 
-    @Id
-    private int id;
     private String name;
     private int price;
 
@@ -20,12 +18,14 @@ public class Product {
         this.price = price;
     }
 
+    @Override
     public int getId() {
-        return id;
+        return super.getId();
     }
 
+    @Override
     public void setId(int id) {
-        this.id = id;
+        super.setId(id);
     }
 
     public String getName() {

@@ -5,10 +5,8 @@ import com.tutorial.crudmongoback.global.utils.Operations;
 import com.tutorial.crudmongoback.security.dto.CreateUserDto;
 import com.tutorial.crudmongoback.security.entity.UserEntity;
 import com.tutorial.crudmongoback.security.enums.RoleEnum;
-import com.tutorial.crudmongoback.security.jwt.JwtProvider;
 import com.tutorial.crudmongoback.security.repository.UserEntityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -24,11 +22,6 @@ public class UserEntityService {
     @Autowired
     PasswordEncoder passwordEncoder;
 
-    @Autowired
-    AuthenticationManager authenticationManager;
-
-    @Autowired
-    JwtProvider jwtProvider;
 
     public UserEntity create(CreateUserDto dto) throws AttributeException {
         if(userEntityRepository.existsByUsername(dto.getUsername()))

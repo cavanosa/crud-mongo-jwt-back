@@ -14,7 +14,7 @@ public class CreateUserDto {
     private String email;
     @NotBlank(message = "username is mandatory")
     private String password;
-    @NotEmpty(message = "roles are mandatory")
+    // @NotEmpty(message = "roles are mandatory")
     List<String> roles;
 
     public CreateUserDto() {

@@ -42,7 +42,8 @@ public class MainSecurityConfig {
         builder.userDetailsService(userDetailsServiceImpl).passwordEncoder(passwordEncoder);
         authenticationManager = builder.build();
         http.authenticationManager(authenticationManager);
-        http.csrf().disable().cors().disable();
+        http.csrf().disable();
+        http.cors();
         http.authorizeRequests().antMatchers("/auth/**").permitAll().anyRequest().authenticated();
         http.exceptionHandling().authenticationEntryPoint(jwtEntryPoint);
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

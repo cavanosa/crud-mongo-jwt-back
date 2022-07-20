@@ -16,6 +16,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/auth")
+@CrossOrigin
 public class AuthController {
 
     @Autowired
@@ -24,6 +25,18 @@ public class AuthController {
     @PostMapping("/create")
     public ResponseEntity<MessageDto> create(@Valid @RequestBody CreateUserDto dto) throws AttributeException {
         UserEntity userEntity = userEntityService.create(dto);
+        return ResponseEntity.ok(new MessageDto(HttpStatus.OK, "user " + userEntity.getUsername() + " have been created"));
+    }
+
+    @PostMapping("/create-admin")
+    public ResponseEntity<MessageDto> createAdmin(@Valid @RequestBody CreateUserDto dto) throws AttributeException {
+        UserEntity userEntity = userEntityService.createAdmin(dto);
+        return ResponseEntity.ok(new MessageDto(HttpStatus.OK, "admin " + userEntity.getUsername() + " have been created"));
+    }
+
+    @PostMapping("/create-user")
+    public ResponseEntity<MessageDto> createUser(@Valid @RequestBody CreateUserDto dto) throws AttributeException {
+        UserEntity userEntity = userEntityService.createUser(dto);
         return ResponseEntity.ok(new MessageDto(HttpStatus.OK, "user " + userEntity.getUsername() + " have been created"));
     }
 
